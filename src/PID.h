@@ -17,6 +17,10 @@ public:
   double Ki;
   double Kd;
 
+  // Error
+  int iteration;
+  double total_error;
+
   /*
   * Constructor
   */
@@ -41,6 +45,7 @@ public:
   * Calculate the total PID error.
   */
   double TotalError();
+  double GetSteerValue();
 };
 
 #endif /* PID_H */
