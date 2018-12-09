@@ -4,7 +4,9 @@
 #include "PID.h"
 #include <math.h>
 
+
 // for convenience
+using namespace std;
 using json = nlohmann::json;
 
 // For converting back and forth between radians and degrees.
@@ -34,6 +36,7 @@ int main()
 
   PID pid;
   // TODO: Initialize the pid variable.
+  pid.Init(0.2, 0.0005, 5);
 
   h.onMessage([&pid](uWS::WebSocket<uWS::SERVER> ws, char *data, size_t length, uWS::OpCode opCode) {
     // "42" at the start of the message means there's a websocket message event.
@@ -60,6 +63,9 @@ int main()
 
           pid.iteration++;
           pid.UpdateError(cte);
+
+          cout << "Kp: " << pid.Kp << endl;
+
           steer_value = pid.GetSteerValue();
           
           if (steer_value < -1)
